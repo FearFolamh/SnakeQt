@@ -13,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_gridLayout ->addWidget(m_helpField,1,0);
     m_cenralWidget ->setLayout(m_gridLayout);
     setCentralWidget(m_cenralWidget);
+    setStyleSheet("background: rgb(45,50,60);");
 }
 
 MainWindow::~MainWindow() {}

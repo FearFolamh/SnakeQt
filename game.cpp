@@ -18,26 +18,36 @@ GameField::GameField()
 void GameField::paintEvent(QPaintEvent *e)
 {
     Q_UNUSED(e);
+    QBrush gameFieldBrush(QColor(139,144,163),Qt::SolidPattern);
+    QBrush snakeBrush(QColor(69,164,72),Qt::SolidPattern);
+    QBrush foodBrush(QColor(247,103,123),Qt::SolidPattern);
     QPainter painter;
     painter.begin(this);
     if(m_isGameOver)
     {
+        painter.setPen(QColor(250,250,250));
         painter.setFont(QFont("Arial",15,700));
         painter.drawText(QRect(0,0,width(),height()),Qt::AlignCenter, "Game is over\nscore : " + QString::number(m_score));
         return;
     }
+    // game field
+
+    painter.setBrush(gameFieldBrush);
+    painter.setPen(QColor(50,50,50));
     painter.drawRect(0,0,width()-1,height()-1);
 
     // snake
 
     for(int i =0;i<m_snake->m_snakeBody.size();i++)
     {
+        painter.setBrush(snakeBrush);
+        painter.setPen(QColor(0,0,0));
         painter.drawEllipse(m_snake->m_snakeBody[i]->m_x*m_snakeItemSize,m_snake->m_snakeBody[i]->m_y*m_snakeItemSize
                             ,m_snakeItemSize, m_snakeItemSize);
     }
 
     //food
-
+    painter.setBrush(foodBrush);
     painter.drawEllipse(m_food->m_x * m_snakeItemSize, m_food->m_y * m_snakeItemSize,m_snakeItemSize,m_snakeItemSize);
 
     painter.end();
